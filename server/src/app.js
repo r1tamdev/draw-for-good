@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import { env } from './config/env.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { handleStripeWebhook } from './webhooks/stripe.js';
+import dashboardRoutes from './routes/dashboard.js'
 import authRoutes from './routes/auth.js';
 import subscriptionRoutes from './routes/subscription.js';
 import scoresRoutes from './routes/scores.js';
@@ -18,6 +19,8 @@ const app = express();
 app.use(cors({ origin: env.clientUrl, credentials: true }));
 app.use(cookieParser());
 app.use(morgan('dev'));
+
+app.use('/api/dashboard',dashboardRoutes);
 
 app.post('/api/webhooks/stripe', express.raw({ type: 'application/json' }), handleStripeWebhook);
 

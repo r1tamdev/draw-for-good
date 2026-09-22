@@ -10,10 +10,9 @@ export async function getCharity(id) {
   return data;
 }
 
-export async function selectCharity(charityId, contributionPct) {
+export async function selectCharity(charityId) {
   const { data } = await axiosInstance.post('/charities/select', {
     charity_id: charityId,
-    charity_contribution_pct: contributionPct,
   });
   return data;
 }

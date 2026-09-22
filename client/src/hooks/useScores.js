@@ -4,12 +4,20 @@ import { getScores, addScore, updateScore, deleteScore } from '../api/scores.js'
 export function useScores() {
   const [scores, setScores] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const refresh = useCallback(async () => {
     setLoading(true);
-    const data = await getScores();
-    setScores(data);
-    setLoading(false);
+    setError(null);
+    try {
+      const data = await getScores();
+      setScores(data);
+    } catch (err) {
+      setError(err.response?.status === 403 ? 'no_subscription' : 'unknown');
+      setScores([]);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -31,5 +39,5 @@ export function useScores() {
     await refresh();
   };
 
-  return { scores, loading, create, edit, remove, refresh };
+  return { scores, loading, error, create, edit, remove, refresh };
 }
