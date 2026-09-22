@@ -1,13 +1,85 @@
 @import "tailwindcss";
 
-:root {
-  --color-primary: #1f6f4a;
-  --color-accent: #d98e3c;
+@theme {
   --color-bg: #0c0f14;
+  --color-surface: #12161d;
+  --color-surface-raised: #181d26;
+  --color-border: #262c36;
+
+  --color-ink: #f4f4f4;
+  --color-ink-muted: #9aa2ad;
+
+  --color-primary: #1f6f4a;
+  --color-primary-hover: #278a5c;
+  --color-primary-muted: #16332590;
+
+  --color-accent: #d98e3c;
+  --color-accent-hover: #e8a355;
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
 }
 
-body {
-  background-color: var(--color-bg);
-  color: #f4f4f4;
-  font-family: system-ui, sans-serif;
+@layer base {
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: #0c0f14;
+  }
+
+  a, button {
+    outline-color: var(--color-accent);
+  }
+}
+
+@layer components {
+  .grid-texture {
+    background-image:
+      linear-gradient(var(--color-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.15;
+  }
+
+  .card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+  }
+
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-ink);
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: background-color 150ms ease;
+  }
+  .btn-primary:hover {
+    background-color: var(--color-primary-hover);
+  }
+
+  .btn-accent {
+    background-color: var(--color-accent);
+    color: #0c0f14;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: background-color 150ms ease;
+  }
+  .btn-accent:hover {
+    background-color: var(--color-accent-hover);
+  }
+
+  .ticket-divider {
+    border-left: 2px dashed var(--color-border);
+  }
 }
